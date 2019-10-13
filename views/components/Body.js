@@ -7,8 +7,9 @@ import React from 'react';
 class Body extends React.Component{
     render() {
         return(
-            <body>
-                {this.props.children}
+            <body style={{backgroundColor: 'black', color: 'white'}}>
+                {/*{this.props.children}*/}
+                codex33 coming soon
             </body>
         );
     }
