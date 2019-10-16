@@ -8,8 +8,8 @@ class Body extends React.Component{
     render() {
         return(
             <body style={{backgroundColor: 'black', color: 'white'}}>
-                {/*{this.props.children}*/}
-                codex33 coming soon
+                {this.props.children}
+                {/*codex33 coming soon*/}
             </body>
         );
     }

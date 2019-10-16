@@ -23,7 +23,7 @@ module.exports = {
     entry: './client.js',
     output: {
         filename: 'bundle.js',
-        path: '/var/www/rastahealth.com/public'
+        path: '/var/www/html/codex33/public'
     },
     module: {
         rules: [

@@ -35,7 +35,7 @@ class Layout extends React.Component{
         super(props);
 
         this.state = {
-            title:"Rasta Health",
+            title:"",
             lastCommit:'update NPM',
             lastTime:'Fri Feb 22 2019 14:49 EST'
         }
@@ -92,41 +92,47 @@ class Layout extends React.Component{
 
             {/*Body Component*/}
 			<Body>
-                {/*Testing Component*/}
+                {/*Testing Component
                 <Testing
                     handleClick={this.handleClick}
                     lastCommit={this.state.lastCommit}
                     lastTime={this.state.lastTime}
                 />
-
-                {/*Header Component*/}
+                */}
+                {/*Header Component
                 <Header>
                     <Header_title_slogan/>
                     <Header_menu_nav/>
                 </Header>
+                */}
 
-                {/*Adsense_box_mobile Component*/}
+                {/*Adsense_box_mobile Component
                 <Adsense_box_mobile/>
+                */}
+                
 
                 {/*TODO; main should only contain this.props.children*/}
-                <main>
+                {/*<main>*/}
                     {/*TODO; Get rid of this div className="row"*/}
-                    <div className="row">
+                    {/*<<div className="row">*/}
 
-                        {/*TODO; Nav should have menu-items passed in as props*/}
+                        {/*TODO; Nav should have menu-items passed in as props
                         <Nav/>
+                        */}
 
-                        {/*Share Component*/}
+                        {/*Share Component
                         <Share/>
+                        */}
 
-                        {/*Children from routing appear here*/}
+                        {/*Children from routing appear here
                         {this.props.children}
-
-                        {/*Right Component*/}
+                        */}
+                        {/*Right Component
                         <Right/>
+                        */}
 
-                    </div>
-                </main>
+                    {/*</div>*/}
+                {/*</main>*/}
 
                 {/*Footer Component*/}
                 <Footer/>
