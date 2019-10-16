@@ -120,7 +120,6 @@ class Layout extends React.Component{
                         <Nav/>
                         */}
 
-
                         {/*Share Component
                         <Share/>
                         */}
