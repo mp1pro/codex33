@@ -99,12 +99,11 @@ class Layout extends React.Component{
                     lastTime={this.state.lastTime}
                 />
                 */}
-                {/*Header Component
+                {/*Header Component*/}
                 <Header>
-                    <Header_title_slogan/>
-                    <Header_menu_nav/>
+                    
                 </Header>
-                */}
+                
 
                 {/*Adsense_box_mobile Component
                 <Adsense_box_mobile/>
