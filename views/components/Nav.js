@@ -3,26 +3,45 @@
  */
 
 import React from 'react';
+import TreeMenu, { defaultChildren, ItemComponent } from 'react-simple-tree-menu';
+
+
+const treeData = {
+  'first-level-node-1': {  
+    label: 'Node 1 at the first level',
+    index: 0,
+    nodes: {
+      'second-level-node-1': {
+        label: 'Node 1 at the second level',
+        index: 0,
+        nodes: {
+          'third-level-node-1': {
+            label: 'Node 1 at the third level',
+            index: 0,
+            nodes: {} 
+          },
+        },
+      },
+    },
+  },
+  'first-level-node-2': {
+    label: 'Node 2 at the first level',
+    index: 1,
+  }
+};
 
 class Nav extends React.Component{
     render() {
         return(
-            <nav>
-                <ul>
-                    <li>Prostate Heal</li>
-                    <li>Coughing</li>
-                    <li>Low Energy</li>
-                    <li>Constipation Diarhhea</li>
-                    <li>diarrhea</li>
-                    <li>Acne</li>
-                    <li>Oily Skin</li>
-                    <li>Low Energy</li>
-                    <li>Constipation Diarhhea</li>
-                    <li>diarrhea</li>
-                    <li>Acne</li>
-                    <li>Oily Skin</li>
-                </ul>
-            </nav>
+            <TreeMenu data={treeData}>
+                {({ search, items }) => (
+                    <ul>
+                        {items.map(props => (
+                            <ItemComponent { ...props } />
+                        ))}
+                    </ul>
+                )}
+            </TreeMenu>
         );
     }
 }
