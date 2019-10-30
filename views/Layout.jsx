@@ -16,6 +16,7 @@ import HTML from './components/HTML';
         import Testing from './components/Testing';
         import Header from './components/Header';
             import Header_title_slogan from './components/Header_title_slogan';
+            import Title from './components/Title';
             import Header_menu_nav from './components/Header_menu_nav';
         import Adsense_box_mobile from './components/Adsense_box_mobile';
         //import Main from './components/Main';
@@ -101,6 +102,7 @@ class Layout extends React.Component{
                 */}
                 {/*Header Component*/}
                 <Header>
+                    <Title/>
                     <Nav/>
                 </Header>
                 
