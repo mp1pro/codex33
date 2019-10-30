@@ -1,5 +1,6 @@
-body{
-    padding: 0;
+* {
+margin: 0;
+padding: 0;
 }
 
 ul{
@@ -8,7 +9,10 @@ ul{
     outline: none;
 }
 
-header{border-bottom: 3px solid red;}
+header{
+    border-bottom: 3px solid red;
+    background-color: blue;
+}
 
 header div{outline: none;}
 
