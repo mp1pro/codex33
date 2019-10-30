@@ -1,3 +1,4 @@
+
 @font-face {
     font-family: 'pocket_calculatorregular';
     src: url('font/pockc___-webfont.woff2') format('woff2'),
@@ -7,6 +8,7 @@
     font-style: normal;
 
 }
+
 
 * {
 margin: 0;
@@ -22,6 +24,7 @@ ul{
 header{
     border-bottom: 3px solid red;
     background-color: blue;
+
     
 }
 
@@ -30,6 +33,7 @@ header h1{
     font-size: 3rem;
     padding: 0.75rem 1rem;
     font-weight: 400;
+
 }
 
 header div{outline: none;}
