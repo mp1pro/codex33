@@ -23,7 +23,6 @@ ul{
 
 header{
     border-bottom: 3px solid red;
-    background-color: blue;
 
     
 }
@@ -37,6 +36,11 @@ header h1{
 }
 
 header div{outline: none;}
+
+.click_handle{
+    background-color: red;
+    height: 10px;
+}
 
 ul li{
     background-color: orange;
