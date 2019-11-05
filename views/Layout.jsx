@@ -22,6 +22,7 @@ import HTML from './components/HTML';
         //import Main from './components/Main';
             import Nav from './components/Nav';
             import Share from './components/Share';
+            import Click_handle from './components/Click_handle';
             import Right from './components/Right';
         import Footer from './components/Footer';
 
@@ -104,6 +105,7 @@ class Layout extends React.Component{
                 <Header>
                     <Title/>
                     <Nav/>
+                    <Click_handle/>
                 </Header>
                 
 
