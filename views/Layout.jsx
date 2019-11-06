@@ -39,9 +39,10 @@ class Layout extends React.Component{
         this.state = {
             title:"",
             lastCommit:'update NPM',
-            lastTime:'Fri Feb 22 2019 14:49 EST'
+            lastTime:'Fri Feb 22 2019 14:49 EST',
+            toggleSlider: false
         }
-
+        this.handleSlider = this.handleSlider.bind(this);
         this.handleClick = this.handleClick.bind(this);
         /*this.setTitle = this.setTitle.bind(this);*/
         this.getTitle = this.getTitle.bind(this);
@@ -55,7 +56,11 @@ class Layout extends React.Component{
     getTitle(){
         return(this.state.title);
     }
-
+    handleSlider(){
+        this.setState(prevState => ({
+            toggleSlider: !prevState.toggleSlider
+        }));
+    }
     componentDidMount() {
 
         console.log('I mount');
@@ -102,10 +107,15 @@ class Layout extends React.Component{
                 />
                 */}
                 {/*Header Component*/}
-                <Header>
+                <Header
+                    toggleSlider={this.state.toggleSlider}
+                >
                     <Title/>
                     <Nav/>
-                    <Click_handle/>
+                    <Click_handle
+                        handleSlider={this.handleSlider}
+                        toggleSlider={this.state.toggleSlider}
+                    />
                 </Header>
                 
 

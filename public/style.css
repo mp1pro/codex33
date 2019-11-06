@@ -23,7 +23,16 @@ ul{
 
 header{
     border-bottom: 3px solid red;
-
+    margin-top: -140px;
+    
+    transition: margin-top 0.15s ease-out;
+    
+}
+header.toggle{
+    border-bottom: 3px solid red;
+    margin-top: 0px;
+    
+    transition: margin-top 0.25s ease-out;
     
 }
 

@@ -6,8 +6,9 @@ import React from 'react';
 
 class Header extends React.Component{
     render() {
+        console.log("this.props", this.props)
         return(
-            <header>
+            <header className = {this.props.toggleSlider ? "toggle" : ""}>
                 {this.props.children}
             </header>
         );
