@@ -24,7 +24,7 @@ ul{
 header{
     border-bottom: 3px solid red;
     margin-top: -140px;
-    
+    background-image: url("assets/menu_pattern_1.png");
     transition: margin-top 0.15s ease-out;
     
 }
