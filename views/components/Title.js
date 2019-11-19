@@ -3,9 +3,10 @@ import React from 'react';
 
 class Header extends React.Component{
     render() {
+            
         return(
             <h1>
-                {'CODEX33.COM'}
+                <span>{'CODE'}</span><span className = {"red"}>{'X'}</span><span>{'33.COM'}</span>
             </h1>
         );
     }
