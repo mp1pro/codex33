@@ -15,18 +15,43 @@ margin: 0;
 padding: 0;
 }
 
+.click_tab{
+    position: relative;
+    
+}
+
+.trapezoid {
+    border-top: 50px solid red;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    height: 0;
+    width: 100px;
+    margin: 0 auto;
+}
+.trapezoid2 {
+    border-top: 50px solid red;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    height: 0;
+    width: 100px;
+    margin: 0 auto;
+}
+
 ul{
     list-style-type: none;
     padding: 0;
     outline: none;
 }
-
+footer{
+    position: relative;
+    z-index: -1000;
+}
 header{
     border-bottom: 3px solid red;
     margin-top: -140px;
     background-image: url("assets/menu_pattern_1.png");
     transition: margin-top 0.15s ease-out;
-    
+    position: relative;
 }
 header.toggle{
     border-bottom: 3px solid red;
