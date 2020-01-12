@@ -13,18 +13,19 @@ import {
 import HTML from './components/HTML';
     import Head from './components/Head';
     import Body from './components/Body';
-        import Testing from './components/Testing';
-        import Header from './components/Header';
-            import Header_title_slogan from './components/Header_title_slogan';
-            import Title from './components/Title';
-            import Header_menu_nav from './components/Header_menu_nav';
-        import Adsense_box_mobile from './components/Adsense_box_mobile';
-        //import Main from './components/Main';
-            import Nav from './components/Nav';
-            import Share from './components/Share';
-            import Click_handle from './components/Click_handle';
-            import Right from './components/Right';
-        import Footer from './components/Footer';
+        import Wrapper from './components/Wrapper';
+            import Testing from './components/Testing';
+            import Header from './components/Header';
+                import Header_title_slogan from './components/Header_title_slogan';
+                import Title from './components/Title';
+                import Header_menu_nav from './components/Header_menu_nav';
+            import Adsense_box_mobile from './components/Adsense_box_mobile';
+            //import Main from './components/Main';
+                import Nav from './components/Nav';
+                import Share from './components/Share';
+                import Click_handle from './components/Click_handle';
+                import Right from './components/Right';
+            import Footer from './components/Footer';
 
 
 import GraphQL from '../util/GitGraphQL';
@@ -99,6 +100,7 @@ class Layout extends React.Component{
 
             {/*Body Component*/}
 			<Body>
+			<Wrapper>
                 {/*Testing Component
                 <Testing
                     handleClick={this.handleClick}
@@ -149,11 +151,12 @@ class Layout extends React.Component{
 
                 {/*Footer Component*/}
                 <Footer/>
-
+                        </Wrapper>
 			<script dangerouslySetInnerHTML={{
 				__html: 'window.PROPS='+ JSON.stringify(custom)
 			}}/>
 			<script src="/bundle.js" />
+			
 			</Body>
 			</HTML>
         );
