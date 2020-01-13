@@ -60,6 +60,7 @@ class Layout extends React.Component{
         return(this.state.title);
     }
     handleSlider(){
+        e.preventDefault();
         this.setState(prevState => ({
             toggleSlider: !prevState.toggleSlider
         }));
