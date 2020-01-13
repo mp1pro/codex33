@@ -8,17 +8,17 @@ class Click_handle extends React.Component{
         let onClick = '';
         let onTouchStart= '';
     console.log("click props", this.props)
-    if(this.props.mobileView){
+    if(true){
         onClick = '';
-        onTouchStart= 'this.props.handleSlider';
+        onTouchStart= this.props.handleSlider;
     }else{
-        onClick = 'this.props.handleSlider';
+        onClick = this.props.handleSlider;
         onTouchStart= '';
     }
         return(
-            <div className = {"click_handle"} onClick={this.props.handleSlider}>
+            <div className = {"click_handle"} onTouchStart={onTouchStart}  onClick={onClick}>
                 <div className = {this.props.toggleSlider ? "trapezoid2" : "trapezoid"}>
-                    <div className = {"click_tab"} onTouchMove={touchMoveEvent => onTouchStart(touchMoveEvent) onClick={onClick}} />
+                    <div className = {"click_tab"} />
                 </div>
             </div>
         );
