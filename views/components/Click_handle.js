@@ -18,7 +18,7 @@ class Click_handle extends React.Component{
         return(
             <div className = {"click_handle"} onClick={this.props.handleSlider}>
                 <div className = {this.props.toggleSlider ? "trapezoid2" : "trapezoid"}>
-                    <div className = {"click_tab"} onClick={onClick} onTouchStart={onTouchStart} />
+                    <div className = {"click_tab"} onClick={onClick} onTouchEnd={onTouchStart} />
                 </div>
             </div>
         );
