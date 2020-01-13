@@ -41,12 +41,14 @@ class Layout extends React.Component{
             title:"",
             lastCommit:'update NPM',
             lastTime:'Fri Feb 22 2019 14:49 EST',
-            toggleSlider: false
+            toggleSlider: false,
+            mobileView: false
         }
         this.handleSlider = this.handleSlider.bind(this);
         this.handleClick = this.handleClick.bind(this);
         /*this.setTitle = this.setTitle.bind(this);*/
         this.getTitle = this.getTitle.bind(this);
+        this.isMobile = this.isMobile.bind(this);
     }
 
     handleClick() {
@@ -62,8 +64,38 @@ class Layout extends React.Component{
             toggleSlider: !prevState.toggleSlider
         }));
     }
+    
+    isMobile() {
+        console.log('nav',navigator.userAgent);
+        
+        if (navigator.userAgent.match(/Android/i)
+            || navigator.userAgent.match(/iPhone/i)
+            || navigator.userAgent.match(/iPad/i)
+            || navigator.userAgent.match(/iPod/i)
+            || navigator.userAgent.match(/BlackBerry/i)
+            || navigator.userAgent.match(/Windows Phone/i)
+            || navigator.userAgent.match(/Opera Mini/i)
+            || navigator.userAgent.match(/IEMobile/i)) {
+            
+            this.setState({
+                mobileView: true}, () => {
+                console.log('true',this.state.mobileView);
+            });
+        }
+        else {
+            this.setState({
+                mobileView: false
+            }, () => {
+                console.log('false',this.state.mobileView);
+            });
+        }
+    
+    }
     componentDidMount() {
-
+        
+    
+    this.isMobile();
+        
         console.log('I mount');
         //this.setTitle();
 
@@ -91,6 +123,7 @@ class Layout extends React.Component{
     render() {
 		let custom = this.props.custom;
         console.log(this.props.match);
+        
         /*import About from './About';*/
         return(
 			<HTML>
@@ -116,6 +149,7 @@ class Layout extends React.Component{
                     <Nav/>
                     <Click_handle
                         handleSlider={this.handleSlider}
+                        isMobile={this.state.mobileView}
                         toggleSlider={this.state.toggleSlider}
                     />
                 </Header>
