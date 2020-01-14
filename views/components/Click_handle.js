@@ -8,7 +8,7 @@ class Click_handle extends React.Component{
         let onClick = '';
         let onTouchStart= '';
     console.log("click props", this.props)
-    if(true){
+    if(this.props.mobileView){
         onClick = '';
         onTouchStart= this.props.handleSlider;
     }else{

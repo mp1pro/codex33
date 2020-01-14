@@ -63,7 +63,7 @@ padding: 0;
     width: 100px;
     margin: 0 auto;
     position: relative;
-    top: -50px;
+    top: -37px;
 }
 
 ul{
@@ -137,15 +137,17 @@ ul > div{
   
   color: white;
   background: none;
-  border-bottom: 1px solid #ccc;
+  /*border-bottom: 1px solid #ccc;*/
   box-shadow: none;
   z-index: unset;
   position: relative; }
   .tree-item--active {
     color: white; }
-  .tree-item--focused {
+/*
+   .tree-item--focused {
     box-shadow: 0 0 5px 0 #222;
     z-index: 999; }
+*/
 
 .search {
   padding: 1rem 1.5rem;
