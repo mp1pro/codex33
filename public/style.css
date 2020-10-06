@@ -116,15 +116,19 @@ ul > div{
 }
 
 
-.toggle-icon {
+
+div[class*="toggle-icon"]{
     display: inline-block; 
     cursor: pointer;
 }
-  .toggle-icon-symbol {
+
+
+div[class*="toggle-icon-symbol"]{
     width: 2rem;
     height: 2rem;
     text-align: center;
-    line-height: 2rem; }
+    line-height: 2rem;
+  }
 
 .tree-item-group {
   list-style-type: none;
