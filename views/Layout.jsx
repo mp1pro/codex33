@@ -28,7 +28,7 @@ import HTML from './components/HTML';
             import Footer from './components/Footer';
 
 
-import GraphQL from '../util/GitGraphQL';
+//import GraphQL from '../util/GitGraphQL';
 
 class Layout extends React.Component{
 //module.exports = React.createClass({
@@ -42,13 +42,15 @@ class Layout extends React.Component{
             lastCommit:'update NPM',
             lastTime:'Fri Feb 22 2019 14:49 EST',
             toggleSlider: false,
-            mobileView: false
+            mobileView: false,
+            height:""
         }
         this.handleSlider = this.handleSlider.bind(this);
         this.handleClick = this.handleClick.bind(this);
         /*this.setTitle = this.setTitle.bind(this);*/
         this.getTitle = this.getTitle.bind(this);
         this.isMobile = this.isMobile.bind(this);
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     }
 
     handleClick() {
@@ -80,28 +82,36 @@ class Layout extends React.Component{
             
             this.setState({
                 mobileView: true}, () => {
-                console.log('true',this.state.mobileView);
+                console.log('ismobile',this.state.mobileView);
             });
         }
         else {
             this.setState({
                 mobileView: false
             }, () => {
-                console.log('false',this.state.mobileView);
+                console.log('ismobile: ',this.state.mobileView);
             });
         }
     
     }
+
+    updateWindowDimensions() {
+        console.log('I set height');
+        this.setState({height: window.innerHeight });
+    }
+
     componentDidMount() {
-        
-    
+
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+
     this.isMobile();
         
         console.log('I mount');
         //this.setTitle();
 
         //add graphQL request for last commit here
-        GraphQL.getCommit().then(result => {
+        /*GraphQL.getCommit().then(result => {
 
             let m = result.author.date;
             let d = new Date(m);
@@ -113,7 +123,11 @@ class Layout extends React.Component{
                 lastCommit: result.message,
                 lastTime: d.toString().slice(0,21)+' EST'//result.commitTime
             });
-        });
+        });*/
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
     }
 
 /*    setTitle(){
@@ -122,6 +136,7 @@ class Layout extends React.Component{
     }*/
 
     render() {
+        console.log("height: ", this.state.height);
 		let custom = this.props.custom;
         console.log(this.props.match);
         
