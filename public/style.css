@@ -31,6 +31,17 @@ body,
   z-index: 1;
 }
 
+.sweet-loading{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
 .wrapper {
   /* Making the wrapper stack above the body */
   z-index: 2;

@@ -29,6 +29,12 @@ import HTML from './components/HTML';
 
 
 //import GraphQL from '../util/GitGraphQL';
+import { css } from "@emotion/core";
+import Loader from "react-spinners/PacmanLoader";
+
+const override = css`
+
+`;
 
 class Layout extends React.Component{
 //module.exports = React.createClass({
@@ -43,13 +49,15 @@ class Layout extends React.Component{
             lastTime:'Fri Feb 22 2019 14:49 EST',
             toggleSlider: false,
             mobileView: false,
-            height:""
+            height:"",
+            loader: true
         }
         this.handleSlider = this.handleSlider.bind(this);
         this.handleClick = this.handleClick.bind(this);
         /*this.setTitle = this.setTitle.bind(this);*/
         this.getTitle = this.getTitle.bind(this);
         this.isMobile = this.isMobile.bind(this);
+        this.setLoader = this.setLoader.bind(this);
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     }
 
@@ -100,30 +108,45 @@ class Layout extends React.Component{
         this.setState({height: window.innerHeight });
     }
 
+    setLoader(){
+        console.log('set loader');
+        //e.preventDefault();
+        this.setState(prevState => ({
+            loader: !prevState.loader
+        }));
+    }
+
     componentDidMount() {
+        let {loader} = this.state;
 
     this.updateWindowDimensions();
     window.addEventListener('resize', this.updateWindowDimensions);
 
     this.isMobile();
         
-        console.log('I mount');
-        //this.setTitle();
+    console.log('I mount');
+    //this.setTitle();
 
-        //add graphQL request for last commit here
-        /*GraphQL.getCommit().then(result => {
+    setTimeout(function(){
+        if(loader){
+            this.setLoader();
+        }
+    }.bind(this), 2000);
 
-            let m = result.author.date;
-            let d = new Date(m);
-            //console.log(d.toString().slice(0,21)+' EST');
-            //console.log('result 2',result);
-            console.log('date ',d);
-            this.setState({
+    //add graphQL request for last commit here
+    /*GraphQL.getCommit().then(result => {
 
-                lastCommit: result.message,
-                lastTime: d.toString().slice(0,21)+' EST'//result.commitTime
-            });
-        });*/
+        let m = result.author.date;
+        let d = new Date(m);
+        //console.log(d.toString().slice(0,21)+' EST');
+        //console.log('result 2',result);
+        console.log('date ',d);
+        this.setState({
+
+            lastCommit: result.message,
+            lastTime: d.toString().slice(0,21)+' EST'//result.commitTime
+        });
+    });*/
     }
 
     componentWillUnmount() {
@@ -138,8 +161,27 @@ class Layout extends React.Component{
     render() {
         console.log("height: ", this.state.height);
 		let custom = this.props.custom;
-        console.log(this.props.match);
-        
+        console.log("match: ",this.props.match);
+        let {loader,height} = this.state;
+        console.log("loader: ",loader);
+
+        if(loader){
+            return (
+            <HTML><Head /><Body height={height}>
+                <div className="sweet-loading">
+                    <Loader
+                        css={override}
+                        size={15}
+                        color={"red"}
+                        loading={loader}
+                    />
+                </div>
+                <script dangerouslySetInnerHTML={{
+                    __html: 'window.PROPS='+ JSON.stringify(custom)
+                }}/>
+                <script src="/bundle.js" />
+            </Body></HTML>);
+        }
         /*import About from './About';*/
         return(
 			<HTML>
