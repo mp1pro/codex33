@@ -1,8 +1,8 @@
 {
-  "name": "rastahealth.com",
+  "name": "CODEX33",
   "version": "1.0.0",
-  "description": "rastahealth react/node project",
-  "main": "rh.js",
+  "description": "CODEX33 react/node project",
+  "main": "server.js",
   "dependencies": {
     "@emotion/core": "^10.1.1",
     "react": "^16.6.0",
