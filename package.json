@@ -1,6 +1,4 @@
 {
-
-
   "name": "CODEX33",
   "version": "1.0.0",
   "description": "CODEX33 react/node project",
@@ -12,7 +10,7 @@
     "react-ga": "^2.4.1",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.0.5",
+    "react-scripts": "^3.4.4",
     "react-simple-tree-menu": "^1.1.6",
     "react-spinners": "^0.9.0"
   },
