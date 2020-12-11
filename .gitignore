@@ -25,5 +25,3 @@ yarn-error.log*
 config/
 config.js
 config.less
-
-package-lock.json
