@@ -7,7 +7,9 @@ import React from 'react';
 class Body extends React.Component{
     render() {
         return(
-            <body style={{backgroundColor: 'black', color: 'white', position: 'relative', height:this.props.height}}>
+            <body
+                style={{backgroundColor: 'black', color: 'white', position: 'relative', height:this.props.height}}
+            >
                 {this.props.children}
                 {/*codex33 coming soon*/}
             </body>

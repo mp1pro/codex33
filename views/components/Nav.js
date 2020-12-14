@@ -34,7 +34,7 @@ const treeData = [
 class Nav extends React.Component{
     render() {
         return(
-            
+            <nav>
             <TreeMenu data={treeData}>
                 {({items}) => (
                     <ul>
@@ -44,6 +44,7 @@ class Nav extends React.Component{
                     </ul>
                 )}
             </TreeMenu>
+            </nav>
         );
     }
 }
