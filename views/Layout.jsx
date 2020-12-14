@@ -25,6 +25,7 @@ import HTML from './components/HTML';
                 import Share from './components/Share';
                 import Click_handle from './components/Click_handle';
                 import Right from './components/Right';
+            import Main from './components/Main';
             import Footer from './components/Footer';
 
 
@@ -201,6 +202,7 @@ class Layout extends React.Component{
                 */}
                 {/*Header Component*/}
                 <Header
+                    height={height}
                     toggleSlider={this.state.toggleSlider}
                 >
                     <Title/>
@@ -210,7 +212,14 @@ class Layout extends React.Component{
                         isMobile={this.state.mobileView}
                         toggleSlider={this.state.toggleSlider}
                     />
+
                 </Header>
+
+
+
+                <Main height={height}>
+
+                </Main>
                 
 
                 {/*Adsense_box_mobile Component
