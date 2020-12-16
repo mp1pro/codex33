@@ -50,8 +50,11 @@ class Layout extends React.Component{
             lastTime:'Fri Feb 22 2019 14:49 EST',
             toggleSlider: false,
             mobileView: false,
+            innerHeight:"",
+            loader: true,
             height:"",
-            loader: true
+            availHeight:""
+
         }
         this.handleSlider = this.handleSlider.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -106,7 +109,11 @@ class Layout extends React.Component{
 
     updateWindowDimensions() {
         console.log('I set height');
-        this.setState({height: window.innerHeight });
+        this.setState({
+            innerHeight: window.innerHeight,
+            availHeight: window.screen.availHeight,
+            height: window.screen.height
+        });
     }
 
     setLoader(){
@@ -160,15 +167,19 @@ class Layout extends React.Component{
     }*/
 
     render() {
-        console.log("height: ", this.state.height);
+        //console.log("height: ", this.state.height);
 		let custom = this.props.custom;
         console.log("match: ",this.props.match);
-        let {loader,height} = this.state;
+        let {loader,innerHeight} = this.state;
         console.log("loader: ",loader);
+
+        console.log("innerHeight: ", this.state.innerHeight);
+        console.log('height', this.state.height );
+        console.log('availHeight', this.state.availHeight );
 
         if(loader){
             return (
-            <HTML><Head /><Body height={height}>
+            <HTML><Head /><Body height={innerHeight}>
                 <div className="sweet-loading">
                     <Loader
                         css={override}
@@ -202,7 +213,7 @@ class Layout extends React.Component{
                 */}
                 {/*Header Component*/}
                 <Header
-                    height={height}
+                    height={innerHeight}
                     toggleSlider={this.state.toggleSlider}
                 >
                     <Title/>
@@ -217,7 +228,7 @@ class Layout extends React.Component{
 
 
 
-                <Main height={height}>
+                <Main height={innerHeight}>
 
                 </Main>
                 
