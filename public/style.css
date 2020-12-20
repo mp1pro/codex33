@@ -55,7 +55,7 @@ padding: 0;
 
 .click_tab{
     position: relative;
-    height: 3%;
+    height: 2%;
     
 }
 
@@ -88,15 +88,11 @@ footer{
     z-index: -1000;
 }
 header{
-    border-bottom: 3px solid red;
-    /*margin-top: -140px;*/
     background-image: url("assets/menu_pattern_1.png");
     transition: margin-top 0.15s ease-out;
     position: relative;
 }
 header.toggle{
-    border-bottom: 3px solid red;
-    /*margin-top: 0px;*/
     
     transition: margin-top 0.25s ease-out;
     
@@ -105,23 +101,31 @@ header.toggle{
 header h1{
     font-family: 'pocket_calculatorregular', Arial, sans-serif;
     font-size: 3rem;
-    padding: 0.75rem 1rem;
     font-weight: 400;
-    height: 7%;
+    height: 10%;
     display: inline-block;
+    text-align: center;
+    width: 100%;
+
+}
+
+@media only screen and (max-height: 400px) {
+    header h1 {
+        font-size: 2rem;
+    }
 }
 
 .red{color:red;}
 
 nav{
-    height: 88%;
+    height: 89%;
 }
 
 header div{outline: none;}
 
 .click_handle{
     background-color: red;
-    height: 1%;
+    height: 2%;
 }
 
 ul li{
