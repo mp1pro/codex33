@@ -26,6 +26,7 @@ import HTML from './components/HTML';
                 import Click_handle from './components/Click_handle';
                 import Right from './components/Right';
             import Main from './components/Main';
+                import Canvas from './components/Canvas';
             import Footer from './components/Footer';
 
 
@@ -51,6 +52,7 @@ class Layout extends React.Component{
             toggleSlider: false,
             mobileView: false,
             innerHeight:"",
+            innerWidth:"",
             loader: true,
             height:"",
             availHeight:""
@@ -111,6 +113,7 @@ class Layout extends React.Component{
         console.log('I set height');
         this.setState({
             innerHeight: window.innerHeight,
+            innerWidth: window.innerWidth,
             availHeight: window.screen.availHeight,
             height: window.screen.height
         });
@@ -170,10 +173,11 @@ class Layout extends React.Component{
         //console.log("height: ", this.state.height);
 		let custom = this.props.custom;
         console.log("match: ",this.props.match);
-        let {loader,innerHeight} = this.state;
+        let {loader,innerHeight,innerWidth} = this.state;
         console.log("loader: ",loader);
 
         console.log("innerHeight: ", this.state.innerHeight);
+        console.log("innerWidth: ", this.state.innerWidth);
         console.log('height', this.state.height );
         console.log('availHeight', this.state.availHeight );
 
@@ -229,7 +233,7 @@ class Layout extends React.Component{
 
 
                 <Main height={innerHeight}>
-
+                    <Canvas height={innerHeight} width={innerWidth}/>
                 </Main>
                 
 
