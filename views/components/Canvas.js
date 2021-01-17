@@ -118,7 +118,7 @@ class Canvas extends React.Component {
         const intensity = brightness * 255;
         const rgb = "rgb(" + intensity + "," + intensity + "," + intensity + ")";
         ctx.fillStyle = rgb;
-        ctx.fillRect(x, y, 1, 1);
+        ctx.fillRect(x, y, 2, 2);
     };
 
     render() {
