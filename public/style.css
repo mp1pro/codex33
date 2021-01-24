@@ -136,7 +136,16 @@ ul > div{
     display: inline-block;
 }
 
+main{
+    position:relative;
+}
 
+#canvas2{
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+}
 
 div[class*="toggle-icon"]{
     display: inline-block; 
