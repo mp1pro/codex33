@@ -27,6 +27,7 @@ import HTML from './components/HTML';
                 import Right from './components/Right';
             import Main from './components/Main';
                 import Canvas from './components/Canvas';
+                import Canvas2 from './components/Canvas2';
             import Footer from './components/Footer';
 
 
@@ -234,6 +235,7 @@ class Layout extends React.Component{
 
                 <Main height={innerHeight}>
                     <Canvas height={innerHeight} width={innerWidth}/>
+                    <Canvas2 height={innerHeight} width={innerWidth}/>
                 </Main>
                 
 
