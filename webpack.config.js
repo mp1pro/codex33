@@ -20,7 +20,6 @@ module.exports = {
                 use: [{
                     loader: 'url-loader',
                     options: {
-                        emitFile: false,
                         limit: 10000 // in bytes
                     }
                 }]
