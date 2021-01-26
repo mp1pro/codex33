@@ -50,7 +50,7 @@ class Canvas2 extends React.Component {
         const h = this.props.height;
 
         const x = w/2;
-        const y = h/2;
+        const y = h-70;
 
         this.makeShip(x, y, elapsed, ctx, img);
 
@@ -66,7 +66,7 @@ class Canvas2 extends React.Component {
         //ctx.fillStyle = 'green';
         //ctx.fillRect(x, y, 10, 10);
             img.onload = () => {
-                ctx.drawImage(img, 30, 30);
+                ctx.drawImage(img, x, y, 60, 60);
             }
     };
 
