@@ -28,12 +28,8 @@ class Canvas2 extends React.Component {
         const ctx = canvas.getContext("2d");
         const img = this.refs.image;
         
+        this.reset (ctx,width,height);
         
-        ctx.clearRect(0, 0, width, height);
-        
-        
-        
-
         const animateNextFrame = () => {
             
             // change an element's style here
@@ -41,11 +37,8 @@ class Canvas2 extends React.Component {
             const x = width/2;
             const y = height-70;
            
-           img.onload = () => {
-                ctx.drawImage(img, x, y, 60, 60);
-            }
+            this.makeShip(x, y, ctx,img);
            
-            
             // continue rendering at next frame
             requestAnimationFrame(animateNextFrame)
         }
@@ -54,9 +47,8 @@ class Canvas2 extends React.Component {
         requestAnimationFrame(animateNextFrame);
     }
     
-    reset (ctx) {
-        ctx.fillStyle = "#000";
-        ctx.fillRect(0, 0, this.props.width, this.props.height);
+    reset (ctx,width,height) {
+        ctx.clearRect(0, 0, width, height);
     };
 
     //TICK//
@@ -82,11 +74,9 @@ class Canvas2 extends React.Component {
         requestAnimationFrame(render);
     };
 
-    makeShip(x, y, brightness,ctx,img){
+    makeShip(x, y, ctx,img){
 
-            img.onload = () => {
                 ctx.drawImage(img, x, y, 60, 60);
-            }
     };
 
     render() {
