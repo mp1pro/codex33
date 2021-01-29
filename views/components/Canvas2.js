@@ -17,26 +17,47 @@ class Canvas2 extends React.Component {
     }
 
     componentDidMount() {
+        let width=this.props.width;
+        let height=this.props.height;
+        
         const canvas = this.refs.canvas2;
+        
+        canvas.width = width;
+        canvas.height = height;
+
         const ctx = canvas.getContext("2d");
         const img = this.refs.image;
+        
+        
+        ctx.clearRect(0, 0, width, height);
+        
+        
+        
 
-        const render = (time) => {
-            this.tick(time,ctx,img)
-        };
+        const animateNextFrame = () => {
+            
+            // change an element's style here
 
-        const init = time => {
-
-            this.setState(
-                {prevTime: time},
-                () => {requestAnimationFrame(render);}
-            );
-        };
-
-        requestAnimationFrame(init);
-
-        //console.log('hite2', this.props.height);
+            const x = width/2;
+            const y = height-70;
+           
+           img.onload = () => {
+                ctx.drawImage(img, x, y, 60, 60);
+            }
+           
+            
+            // continue rendering at next frame
+            requestAnimationFrame(animateNextFrame)
+        }
+            
+        // start the animation
+        requestAnimationFrame(animateNextFrame);
     }
+    
+    reset (ctx) {
+        ctx.fillStyle = "#000";
+        ctx.fillRect(0, 0, this.props.width, this.props.height);
+    };
 
     //TICK//
     tick (time,ctx,img) {
@@ -63,8 +84,6 @@ class Canvas2 extends React.Component {
 
     makeShip(x, y, brightness,ctx,img){
 
-        //ctx.fillStyle = 'green';
-        //ctx.fillRect(x, y, 10, 10);
             img.onload = () => {
                 ctx.drawImage(img, x, y, 60, 60);
             }
@@ -74,7 +93,7 @@ class Canvas2 extends React.Component {
         console.log('hite2', this.props.height);
         return(
             <div id='canvas2'>
-                <canvas ref="canvas2" width={this.props.width} height={this.props.height} />
+                <canvas id = 'responsive-canvas'  ref="canvas2" />
                 <img ref="image" src={ship} className="hidden" />
             </div>
         )
