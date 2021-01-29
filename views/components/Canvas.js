@@ -35,8 +35,6 @@ class Canvas extends React.Component {
         };
 
         requestAnimationFrame(init);
-
-        console.log('hite', this.props.height);
     }
 
     //TICK//
@@ -122,7 +120,7 @@ class Canvas extends React.Component {
     };
 
     render() {
-        console.log('hite2', this.props.height);
+        console.log('hite', this.props.height);
         return(
             <div>
                 <canvas ref="canvas" width={this.props.width} height={this.props.height} />
