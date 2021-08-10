@@ -12,13 +12,18 @@ class Canvas2 extends React.Component {
 
         this.state = {
             prevTime: 0,
+            move: {},
+            width: this.props.width,
+            height: this.props.height
         }
-
+        this.moveShip = this.moveShip.bind(this);
+        this.makeShip = this.makeShip.bind(this);
+        this.tick = this.tick.bind(this);
     }
 
     componentDidMount() {
-        let width=this.props.width;
-        let height=this.props.height;
+        let width=this.state.width;
+        let height=this.state.height;
         
         const canvas = this.refs.canvas2;
         
@@ -28,23 +33,77 @@ class Canvas2 extends React.Component {
         const ctx = canvas.getContext("2d");
         const img = this.refs.image;
         
-        this.reset (ctx,width,height);
+        this.reset(ctx,canvas.width,canvas.height);
         
-        const animateNextFrame = () => {
+        window.addEventListener('keydown', this.moveShip);
+        
+        const render = (time) => {
+            this.tick(time,ctx,img)
+        };
+        
+        const animateNextFrame = (time) => {
             
             // change an element's style here
 
-            const x = width/2;
+            const x = (width/2)-30;
             const y = height-70;
-           
-            this.makeShip(x, y, ctx,img);
+            
+            const move = {
+                x: x,
+                y: y
+            };
+            
+            this.setState(
+                {move: move}
+                ,
+                () => {requestAnimationFrame(render)}
+            );
            
             // continue rendering at next frame
-            requestAnimationFrame(animateNextFrame)
+            //requestAnimationFrame(render)
         }
             
         // start the animation
-        requestAnimationFrame(animateNextFrame);
+        let ren = requestAnimationFrame(animateNextFrame);
+    }
+    
+    componentWillUnmount() {
+        window.removeEventListener('keydown', this.moveShip);
+        window.cancelAnimationFrame(ren);
+    }
+    
+    moveShip(event){
+        console.log('move', event);
+        console.log('move-state', this.state.move);
+        
+        let move = this.state.move;
+        
+        if (event.key === "ArrowUp"){
+            move.y -= 100
+        } 
+        else if (event.key === "ArrowDown")
+        {
+            move.y += 100
+        } 
+        else if (event.key === "ArrowLeft"){
+            move.x -= 100
+        } 
+        else if (event.key === "ArrowRight"){
+            move.x += 100
+        }
+        
+        move = {
+            x: move.x,
+            y: move.y
+        }
+        
+        this.setState(
+                {move: move}
+        )
+        
+        return move;
+        
+        
     }
     
     reset (ctx,width,height) {
@@ -53,34 +112,38 @@ class Canvas2 extends React.Component {
 
     //TICK//
     tick (time,ctx,img) {
+        
         let elapsed = time - this.state.prevTime;
+        //let move = this.state.move;        
 
         this.setState({
             prevTime: time
         });
+        
+        //let move = 
 
-        const w = this.props.width;
-        const h = this.props.height;
-
-        const x = w/2;
-        const y = h-70;
-
-        this.makeShip(x, y, elapsed, ctx, img);
+        this.makeShip(ctx, img);
 
         const render = (time) => {
-            this.tick(time,ctx);
+            this.tick(time,ctx,img);
         };
 
-        requestAnimationFrame(render);
+        let ren = requestAnimationFrame(render);
     };
 
-    makeShip(x, y, ctx,img){
+    makeShip (ctx, img){
+        let width=this.state.width;
+        let height=this.state.height;
+        this.reset(ctx,width,height);
+        let move = this.state.move;
+        ctx.drawImage(img, move.x, move.y, 60, 60);
 
-                ctx.drawImage(img, x, y, 60, 60);
     };
 
     render() {
-        console.log('hite2', this.props.height);
+        console.log('height', this.state.height);
+        console.log('width', this.state.width);
+        console.log('mover', this.state.move);
         return(
             <div id='canvas2'>
                 <canvas id = 'responsive-canvas'  ref="canvas2" />
