@@ -122,7 +122,8 @@ class Canvas extends React.Component {
     };
 
     render() {
-        console.log('hite', this.props.height);
+        //console.log('hite', this.props.height);
+        //console.log('wit', this.props.width);
         return(
             <div>
                 <canvas ref="canvas" width={this.props.width} height={this.props.height} />

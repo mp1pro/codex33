@@ -66,6 +66,7 @@ class Layout extends React.Component{
         this.isMobile = this.isMobile.bind(this);
         this.setLoader = this.setLoader.bind(this);
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this.debounce = this.debounce.bind(this);
     }
 
     handleClick() {
@@ -111,14 +112,28 @@ class Layout extends React.Component{
     }
 
     updateWindowDimensions() {
-        console.log('I set height');
-        this.setState({
-            innerHeight: window.innerHeight,
-            innerWidth: window.innerWidth,
-            availHeight: window.screen.availHeight,
-            height: window.screen.height
-        });
+        let timer = setTimeout(() => {
+            console.log('I set height');
+            this.setState({
+                innerHeight: window.innerHeight,
+                innerWidth: window.innerWidth,
+                availHeight: window.screen.availHeight,
+                height: window.screen.height
+            });
+        }, 100);
+        clearTimeout(timer);
     }
+    
+    debounce(fn, ms) {
+        let timer;
+        return (() => {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                timer = null;
+                fn;
+            }, ms);
+        })();
+    };
 
     setLoader(){
         console.log('set loader');
@@ -173,14 +188,14 @@ class Layout extends React.Component{
     render() {
         //console.log("height: ", this.state.height);
 		let custom = this.props.custom;
-        console.log("match: ",this.props.match);
+        //console.log("match: ",this.props.match);
         let {loader,innerHeight,innerWidth} = this.state;
-        console.log("loader: ",loader);
+        //console.log("loader: ",loader);
 
         console.log("innerHeight: ", this.state.innerHeight);
         console.log("innerWidth: ", this.state.innerWidth);
-        console.log('height', this.state.height );
-        console.log('availHeight', this.state.availHeight );
+        //console.log('height', this.state.height );
+        //console.log('availHeight', this.state.availHeight );
 
         if(loader){
             return (
