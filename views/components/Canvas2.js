@@ -148,9 +148,9 @@ class Canvas2 extends React.Component {
     };
 
     render() {
-        console.log('height', this.state.height);
-        console.log('width', this.state.width);
-        console.log('mover', this.state.move);
+        //console.log('height', this.state.height);
+        //console.log('width', this.state.width);
+        //console.log('mover', this.state.move);
         return(
             <div id='canvas2'>
                 <canvas id = 'responsive-canvas'  ref="canvas2" />
