@@ -114,7 +114,7 @@ class Canvas2 extends React.Component {
     tick (time,ctx,img) {
         
         let elapsed = time - this.state.prevTime;
-        //let move = this.state.move;   
+         
         let fps = 60;
         let secInterval = 1000;
         let fpsInterval =  secInterval / fps;
@@ -139,7 +139,9 @@ class Canvas2 extends React.Component {
     makeShip (ctx, img){
         let width=this.state.width;
         let height=this.state.height;
+        
         this.reset(ctx,width,height);
+        
         let move = this.state.move;
         ctx.drawImage(img, move.x, move.y, 60, 60);
 
