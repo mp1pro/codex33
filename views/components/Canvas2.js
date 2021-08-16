@@ -4,6 +4,7 @@ import React from 'react';
 //const ship = require('../../public/assets/ship.png');
 //console.log('ship =', require('../../public/assets/ship.png'));
 import ship from '../../public/assets/ship.png';
+import mship from '../../public/assets/mship.png';
 //console.log('ship =', ship);
 
 class Canvas2 extends React.Component {
@@ -167,7 +168,7 @@ class Canvas2 extends React.Component {
         return(
             <div id='canvas2'>
                 <canvas id = 'responsive-canvas'  ref="canvas2" width={this.props.width} height={this.props.height}/>
-                <img ref="image" src={ship} className="hidden" />
+                <img ref="image" src={this.props.mobileView === true || this.props.width < 720 ? mship : ship} className="hidden" />
             </div>
         )
     }
