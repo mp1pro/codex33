@@ -19,8 +19,19 @@ class Canvas2 extends React.Component {
         this.moveShip = this.moveShip.bind(this);
         this.makeShip = this.makeShip.bind(this);
         this.tick = this.tick.bind(this);
+        this.init = this.init.bind(this);
     }
-
+    init(){
+        const x = this.props.width/2 - (this.props.width/10)/2;
+        const y = this.props.height-70;
+        
+        const move = {
+            x: x,
+            y: y
+        };
+        
+        return move;
+    }
     componentDidMount() {
         let width=this.props.width;
         let height=this.props.height;
@@ -39,25 +50,14 @@ class Canvas2 extends React.Component {
         };
         
         const animateNextFrame = (time) => {
-            
-            // change an element's style here
 
-            const x = (width/2)-30;
-            const y = height-70;
-            
-            const move = {
-                x: x,
-                y: y
-            };
+            let move = this.init();
             
             this.setState(
                 {move: move}
                 ,
                 () => {requestAnimationFrame(render)}
             );
-           
-            // continue rendering at next frame
-            //requestAnimationFrame(render)
         }
             
         // start the animation
@@ -73,20 +73,22 @@ class Canvas2 extends React.Component {
         console.log('move', event);
         console.log('move-state', this.state.move);
         
+        let moveSteps = (this.props.width/10) + (this.props.width/10)/2;
+        
         let move = this.state.move;
         
         if (event.key === "ArrowUp"){
-            move.y -= 100
+            move.y -= moveSteps
         } 
         else if (event.key === "ArrowDown")
         {
-            move.y += 100
+            move.y += moveSteps
         } 
         else if (event.key === "ArrowLeft"){
-            move.x -= 100
+            move.x -= moveSteps
         } 
         else if (event.key === "ArrowRight"){
-            move.x += 100
+            move.x += moveSteps
         }
         
         move = {
@@ -143,20 +145,13 @@ class Canvas2 extends React.Component {
         this.reset(ctx,width,height);
         
         let move = this.state.move;
-        ctx.drawImage(img, move.x, move.y, 60, 60);
+        ctx.drawImage(img, move.x, move.y, width/10, height/10);
 
     };
     
     componentDidUpdate(prevProps) {
         if (this.props.width !== prevProps.width) {
-            //TODO duplicate code from componentDidMount
-            const x = (this.props.width/2)-30;
-            const y = this.props.height-70;
-            
-            const move = {
-                x: x,
-                y: y
-            };
+            let move = this.init();
             
             this.setState({move: move});
         }
