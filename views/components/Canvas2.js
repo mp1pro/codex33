@@ -24,7 +24,7 @@ class Canvas2 extends React.Component {
     }
     init(){
         const x = this.props.width/2 - (this.props.width/10)/2;
-        const y = this.props.height-70;
+        const y = this.props.height - (this.props.height/10);
         
         const move = {
             x: x,
@@ -71,25 +71,52 @@ class Canvas2 extends React.Component {
     }
     
     moveShip(event){
-        console.log('move', event);
+        //console.log('move', event);
         console.log('move-state', this.state.move);
         
         let moveSteps = (this.props.width/10) + (this.props.width/10)/2;
+        let moveStepsHite = (this.props.height/10) * 2;
         
         let move = this.state.move;
-        
+        /*
+        if(
+            move.y < 0 ||
+            move.y > this.props.width ||
+            move.x < 0||
+            move.x > this.props.width
+        ){ return }
+        */
         if (event.key === "ArrowUp"){
-            move.y -= moveSteps
+            if(move.y < moveStepsHite){
+                move.y = move.y
+            }
+            else{
+                move.y -= moveStepsHite
+            }
         } 
-        else if (event.key === "ArrowDown")
-        {
-            move.y += moveSteps
+        else if (event.key === "ArrowDown"){
+            if(move.y > (this.props.height - moveStepsHite)){
+                move.y = move.y
+            }
+            else{
+                move.y += moveStepsHite
+            }
         } 
         else if (event.key === "ArrowLeft"){
-            move.x -= moveSteps
+            if(move.x < moveSteps){
+                move.x = move.x
+            }
+            else{
+                move.x -= moveSteps
+            }
         } 
         else if (event.key === "ArrowRight"){
-            move.x += moveSteps
+            if(move.x > this.props.width - moveSteps){
+                move.x = move.x
+            }
+            else{
+                move.x += moveSteps
+            }
         }
         
         move = {
