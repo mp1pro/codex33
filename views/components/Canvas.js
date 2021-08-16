@@ -50,8 +50,8 @@ class Canvas extends React.Component {
 
         this.reset(ctx);
 
-        const w = this.state.width;
-        const h = this.state.height;
+        const w = this.props.width;
+        const h = this.props.height;
 
         const cx = w/2;
         const cy = h/2;
