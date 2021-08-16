@@ -190,7 +190,7 @@ class Layout extends React.Component{
         //console.log("height: ", this.state.height);
 		let custom = this.props.custom;
         //console.log("match: ",this.props.match);
-        let {loader,innerHeight,innerWidth} = this.state;
+        let {loader,innerHeight,innerWidth, mobileView} = this.state;
         //console.log("loader: ",loader);
 
         console.log("innerHeight: ", this.state.innerHeight);
@@ -251,7 +251,7 @@ class Layout extends React.Component{
 
                 <Main height={innerHeight}>
                     <Canvas height={innerHeight} width={innerWidth}/>
-                    <Canvas2 height={innerHeight} width={innerWidth} />
+                    <Canvas2 height={innerHeight} width={innerWidth} mobileView={mobileView} />
                 </Main>
                 
 
