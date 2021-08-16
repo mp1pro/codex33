@@ -112,7 +112,9 @@ class Layout extends React.Component{
     }
 
     updateWindowDimensions() {
-        let timer = setTimeout(() => {
+        let timer;
+        clearTimeout(timer);
+        timer = setTimeout(() => {
             console.log('I set height');
             this.setState({
                 innerHeight: window.innerHeight,
@@ -121,7 +123,6 @@ class Layout extends React.Component{
                 height: window.screen.height
             });
         }, 100);
-        clearTimeout(timer);
     }
     
     debounce(fn, ms) {
@@ -250,7 +251,7 @@ class Layout extends React.Component{
 
                 <Main height={innerHeight}>
                     <Canvas height={innerHeight} width={innerWidth}/>
-                    <Canvas2 height={innerHeight} width={innerWidth}/>
+                    <Canvas2 height={innerHeight} width={innerWidth} />
                 </Main>
                 
 

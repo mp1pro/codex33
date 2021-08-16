@@ -22,18 +22,15 @@ class Canvas2 extends React.Component {
     }
 
     componentDidMount() {
-        let width=this.state.width;
-        let height=this.state.height;
+        let width=this.props.width;
+        let height=this.props.height;
         
         const canvas = this.refs.canvas2;
-        
-        canvas.width = width;
-        canvas.height = height;
 
         const ctx = canvas.getContext("2d");
         const img = this.refs.image;
         
-        this.reset(ctx,canvas.width,canvas.height);
+        this.reset(ctx,width,height);
         
         window.addEventListener('keydown', this.moveShip);
         
@@ -128,6 +125,9 @@ class Canvas2 extends React.Component {
                 () => {this.makeShip(ctx, img)}
             );
         }
+        else{
+            window.cancelAnimationFrame(ren);
+        }
 
         const render = (time) => {
             this.tick(time,ctx,img);
@@ -137,8 +137,8 @@ class Canvas2 extends React.Component {
     };
 
     makeShip (ctx, img){
-        let width=this.state.width;
-        let height=this.state.height;
+        let width=this.props.width;
+        let height=this.props.height;
         
         this.reset(ctx,width,height);
         
@@ -146,14 +146,32 @@ class Canvas2 extends React.Component {
         ctx.drawImage(img, move.x, move.y, 60, 60);
 
     };
+    
+    componentDidUpdate(prevProps) {
+        if (this.props.width !== prevProps.width) {
+            //TODO duplicate code from componentDidMount
+            const x = (this.props.width/2)-30;
+            const y = this.props.height-70;
+            
+            const move = {
+                x: x,
+                y: y
+            };
+            
+            this.setState({move: move});
+        }
+    }
 
     render() {
-        //console.log('height', this.state.height);
-        //console.log('width', this.state.width);
-        //console.log('mover', this.state.move);
+        /*
+        console.log('height', this.props.height);
+        console.log('width', this.props.width);
+        console.log('height', this.state.height);
+        console.log('width', this.state.width);
+        */
         return(
             <div id='canvas2'>
-                <canvas id = 'responsive-canvas'  ref="canvas2" />
+                <canvas id = 'responsive-canvas'  ref="canvas2" width={this.props.width} height={this.props.height}/>
                 <img ref="image" src={ship} className="hidden" />
             </div>
         )
