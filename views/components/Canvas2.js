@@ -15,10 +15,13 @@ class Canvas2 extends React.Component {
             prevTime: 0,
             move: {},
             width: this.props.width,
-            height: this.props.height
+            height: this.props.height,
+            lazorNum: 0,
+            lazorMove:400
         }
         this.moveShip = this.moveShip.bind(this);
         this.makeShip = this.makeShip.bind(this);
+        this.makeLazor = this.makeLazor.bind(this);
         this.tick = this.tick.bind(this);
         this.init = this.init.bind(this);
     }
@@ -45,6 +48,17 @@ class Canvas2 extends React.Component {
         this.reset(ctx,width,height);
         
         window.addEventListener('keydown', this.moveShip);
+        window.addEventListener('keyup', event => {
+            if (event.key === " "){
+                //setState increment
+                this.setState(prevState => {
+                    return {
+                        lazorNum: prevState.lazorNum + 1
+                        
+                    }
+                })
+            }
+        })
         
         const render = (time) => {
             this.tick(time,ctx,img)
@@ -67,25 +81,30 @@ class Canvas2 extends React.Component {
     
     componentWillUnmount() {
         window.removeEventListener('keydown', this.moveShip);
+        window.removeEventListener('keyup', event => {
+            if (event.key === " "){
+                //setState increment
+                this.setState(prevState => {
+                    return {
+                        lazorNum: prevState.lazorNum + 1
+                        
+                    }
+                })
+            }
+        })
         window.cancelAnimationFrame(ren);
     }
     
     moveShip(event){
-        //console.log('move', event);
+        console.log('move', event);
         console.log('move-state', this.state.move);
         
         let moveSteps = (this.props.width/10) + (this.props.width/10)/2;
         let moveStepsHite = (this.props.height/10) * 2;
         
         let move = this.state.move;
-        /*
-        if(
-            move.y < 0 ||
-            move.y > this.props.width ||
-            move.x < 0||
-            move.x > this.props.width
-        ){ return }
-        */
+        
+        //MOVE SHIP
         if (event.key === "ArrowUp"){
             if(move.y < moveStepsHite){
                 move.y = move.y
@@ -146,7 +165,7 @@ class Canvas2 extends React.Component {
         let secInterval = 1000;
         let fpsInterval =  secInterval / fps;
 
-        //let move = 
+        
         if(elapsed > fpsInterval){
             let prevTime = time - (elapsed % fpsInterval);
             this.setState(
@@ -174,8 +193,59 @@ class Canvas2 extends React.Component {
         
         let move = this.state.move;
         ctx.drawImage(img, move.x, move.y, width/10, height/10);
+        
+        
+            
+        
+        if(this.state.lazorNum > 0){
+            //this.makeLazor(ctx,move);
+            //ymove += 150;
+            ctx.fillStyle = '#f00';
+            let ymove = this.state.lazorMove;
+            ctx.fillRect(400, ymove, 150, 150);
+            console.log('ymove8', ymove);
+            //setState here to move lazer
+            if(this.state.lazorMove > 0){
+                this.setState(prevState => {
+                    return {
+                        lazorMove: prevState.lazorMove - 150
+                        //,
+                        //lazorNum: prevState.lazorNum - 1
+                    }
+                })
+            }
+            else{
+                this.setState(prevState => {
+                    return {
+                        lazorMove: 400
+                        ,
+                        lazorNum: prevState.lazorNum - 1
+                    }
+                })
+            }
+        }
 
     };
+    
+    makeLazor(ctx,move){
+        
+        let width=this.props.width;
+        let height=this.props.height;
+        
+        //this.reset(ctx,width,height);
+        
+        console.log('shoot');
+        
+        ctx.fillStyle = '#f00';
+        let xmove = 400;
+        let ymove = 300;
+        //for loop to move lazer
+        for(let x = 0; x < 7; x++){
+            ctx.fillRect(xmove, ymove, 150, 150);
+            ymove += 150;
+        }
+        
+    }
     
     componentDidUpdate(prevProps) {
         if (this.props.width !== prevProps.width) {
