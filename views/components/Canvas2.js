@@ -17,7 +17,8 @@ class Canvas2 extends React.Component {
             width: this.props.width,
             height: this.props.height,
             lazorNum: 0,
-            lazorMove:400
+            lazorMove:0,
+            throttleKeyUp: true
         }
         this.moveShip = this.moveShip.bind(this);
         this.makeShip = this.makeShip.bind(this);
@@ -48,17 +49,6 @@ class Canvas2 extends React.Component {
         this.reset(ctx,width,height);
         
         window.addEventListener('keydown', this.moveShip);
-        window.addEventListener('keyup', event => {
-            if (event.key === " "){
-                //setState increment
-                this.setState(prevState => {
-                    return {
-                        lazorNum: prevState.lazorNum + 1
-                        
-                    }
-                })
-            }
-        })
         
         const render = (time) => {
             this.tick(time,ctx,img)
@@ -69,7 +59,10 @@ class Canvas2 extends React.Component {
             let move = this.init();
             
             this.setState(
-                {move: move}
+                {
+                    move: move,
+                    lazorMove: move.y
+                }
                 ,
                 () => {requestAnimationFrame(render)}
             );
@@ -79,28 +72,29 @@ class Canvas2 extends React.Component {
         let ren = requestAnimationFrame(animateNextFrame);
     }
     
+    //UNMOUNT
     componentWillUnmount() {
         window.removeEventListener('keydown', this.moveShip);
-        window.removeEventListener('keyup', event => {
-            if (event.key === " "){
-                //setState increment
-                this.setState(prevState => {
-                    return {
-                        lazorNum: prevState.lazorNum + 1
-                        
-                    }
-                })
-            }
-        })
         window.cancelAnimationFrame(ren);
     }
     
     moveShip(event){
-        console.log('move', event);
-        console.log('move-state', this.state.move);
+        //console.log('move', event);
+        //console.log('move-state', this.state.move);
+        
+        //FOR SHOOTING
+        if (event.key === " "){
+            console.log('shoot6', event);
+            //setState increment
+            this.setState(prevState => {
+                return {
+                    lazorNum: prevState.lazorNum + 1
+                }
+            })
+        }
         
         let moveSteps = (this.props.width/10) + (this.props.width/10)/2;
-        let moveStepsHite = (this.props.height/10) * 2;
+        let moveStepsHite = (this.props.height/10);
         
         let move = this.state.move;
         
@@ -114,7 +108,7 @@ class Canvas2 extends React.Component {
             }
         } 
         else if (event.key === "ArrowDown"){
-            if(move.y > (this.props.height - moveStepsHite)){
+            if(move.y > (this.props.height - moveStepsHite*2)){
                 move.y = move.y
             }
             else{
@@ -144,7 +138,10 @@ class Canvas2 extends React.Component {
         }
         
         this.setState(
-                {move: move}
+            {
+                move: move,
+                lazorMove: move.y
+            }
         )
         
         return move;
@@ -158,7 +155,7 @@ class Canvas2 extends React.Component {
 
     //TICK//
     tick (time,ctx,img) {
-        
+        let move = this.state.move;
         let elapsed = time - this.state.prevTime;
          
         let fps = 60;
@@ -171,7 +168,7 @@ class Canvas2 extends React.Component {
             this.setState(
                 {prevTime: prevTime}
                 ,
-                () => {this.makeShip(ctx, img)}
+                () => {return this.makeShip(ctx, img, move)}
             );
         }
         else{
@@ -185,43 +182,56 @@ class Canvas2 extends React.Component {
         let ren = requestAnimationFrame(render);
     };
 
-    makeShip (ctx, img){
+    makeShip (ctx, img, move){
         let width=this.props.width;
         let height=this.props.height;
         
         this.reset(ctx,width,height);
         
-        let move = this.state.move;
+        
+        
         ctx.drawImage(img, move.x, move.y, width/10, height/10);
         
-        
-            
-        
-        if(this.state.lazorNum > 0){
+        let ymove;
+        if(this.state.lazorNum > 0 ){
+            /*
+            this.setState(prevState => {
+                return {
+                    throttleKeyUp: !prevState.throttleKeyUp
+                }
+            }) 
+            */
             //this.makeLazor(ctx,move);
             //ymove += 150;
             ctx.fillStyle = '#f00';
-            let ymove = this.state.lazorMove;
-            ctx.fillRect(400, ymove, 150, 150);
-            console.log('ymove8', ymove);
+            
+            ymove = this.state.lazorMove === move.y ? move.y - (height/10) : this.state.lazorMove;
+            
+            ctx.fillRect(move.x + (width/10)/2, ymove, width/480, height/10);
+            
+            //console.log('move-state', this.state.move);
+            //console.log('move.y6', move.y, 'this.state.lazorMove',this.state.lazorMove,'height',height,'ymove',ymove);    
+            
             //setState here to move lazer
             if(this.state.lazorMove > 0){
                 this.setState(prevState => {
                     return {
-                        lazorMove: prevState.lazorMove - 150
-                        //,
-                        //lazorNum: prevState.lazorNum - 1
+                        lazorMove: prevState.lazorMove - (height/10)
                     }
                 })
             }
             else{
+                //console.log('mov',move.y, 'this.state.lazorMov',this.state.lazorMove);
                 this.setState(prevState => {
-                    return {
-                        lazorMove: 400
-                        ,
-                        lazorNum: prevState.lazorNum - 1
-                    }
-                })
+                        return {
+                            //lazorMove: move.y 
+                            //,
+                            lazorNum: prevState.lazorNum - 1
+                            //,
+                            //throttleKeyUp: !prevState.throttleKeyUp
+                        }
+                    })
+
             }
         }
 
