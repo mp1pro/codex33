@@ -5,6 +5,7 @@ import React from 'react';
 //console.log('ship =', require('../../public/assets/ship.png'));
 import ship from '../../public/assets/ship.png';
 import mship from '../../public/assets/mship.png';
+import enemy2 from '../../public/assets/enemyships/enemy2.png';
 //console.log('ship =', ship);
 
 class Canvas2 extends React.Component {
@@ -13,12 +14,15 @@ class Canvas2 extends React.Component {
 
         this.state = {
             prevTime: 0,
+            prevTime2: 0,
+            fps2:0,
             move: {},
             width: this.props.width,
             height: this.props.height,
             lazorNum: 0,
             lazorMove:0,
-            throttleKeyUp: true
+            throttleKeyUp: true,
+            eMove:{}
         }
         this.moveShip = this.moveShip.bind(this);
         this.makeShip = this.makeShip.bind(this);
@@ -45,13 +49,14 @@ class Canvas2 extends React.Component {
 
         const ctx = canvas.getContext("2d");
         const img = this.refs.image;
+        const img2 = this.refs.image2;
         
         this.reset(ctx,width,height);
         
         window.addEventListener('keydown', this.moveShip);
         
         const render = (time) => {
-            this.tick(time,ctx,img)
+            this.tick(time,ctx,img,img2)
         };
         
         const animateNextFrame = (time) => {
@@ -154,13 +159,23 @@ class Canvas2 extends React.Component {
     };
 
     //TICK//
-    tick (time,ctx,img) {
+    tick (time,ctx,img,img2) {
+        let width=this.props.width;
+        let height=this.props.height;
+        this.reset(ctx,width,height)
         let move = this.state.move;
         let elapsed = time - this.state.prevTime;
+        let elapsed2 = time - this.state.prevTime2;
          
         let fps = 60;
+        let fps2 = 1;
         let secInterval = 1000;
         let fpsInterval =  secInterval / fps;
+        let fpsInterval2 =  secInterval / fps2;
+        
+                
+        console.log('9elapsed1',elapsed,'fpsInterval',fpsInterval);
+        console.log('elapsed2',elapsed2,'fpsInterval2',fpsInterval2);
 
         
         if(elapsed > fpsInterval){
@@ -168,25 +183,111 @@ class Canvas2 extends React.Component {
             this.setState(
                 {prevTime: prevTime}
                 ,
-                () => {return this.makeShip(ctx, img, move)}
+                () => {
+                    this.makeShip(ctx, img, move);
+                }
             );
         }
         else{
             window.cancelAnimationFrame(ren);
         }
+        //for enemyships
+        if(elapsed2 > fpsInterval2){
+           let prevTime2 = time - (elapsed2 % fpsInterval2);
+           this.setState(
+                {prevTime2}
+                
+                ,
+                () => {
+                    this.enemyShip(ctx, img2, elapsed2);
+                }
+                
+            );
+           //this.enemyShip(ctx, img2, elapsed2);
+        }
 
         const render = (time) => {
-            this.tick(time,ctx,img);
+            this.tick(time,ctx,img,img2);
         };
 
         let ren = requestAnimationFrame(render);
     };
+    
+    enemyShip(ctx, img2, elapsed){
+        let width=this.props.width;
+        let height=this.props.height;
+        //console.log('elapsed9',elapsed*10);
+        //this.reset(ctx,width,height);
+        
+                
+        //TODO move to componentDidUpdate to state
+        let moveSteps = (this.props.width/10) + (this.props.width/10)/2;
+        let moveStepsHite = (this.props.height/10);
+        
+        const x = this.props.width/2 - (this.props.width/20)/2;
+        const y = this.props.height/20;
+        
+        let {eMove} = this.state;
+        ctx.drawImage(img2, eMove.x,eMove.y, width/20, height/20)
+        
+        if(Object.keys(eMove).length === 0){
+            eMove.x = x;
+            eMove.y = y;
+        }
+        else{
+            eMove.x = Math.random() < 0.5 ? eMove.x -= moveSteps : eMove.x += moveSteps ;
+            //eMove.y = Math.random() < 0.5 ? eMove.y -= moveStepsHite : eMove.y += moveStepsHite ;
+        }
+        
+        
+        if(eMove.y > (this.props.height - moveStepsHite*2)){
+            eMove.y = eMove.y
+        }    
+        else{
+            eMove.y += moveStepsHite
+        }
+        if(eMove.y < moveStepsHite){
+            eMove.y = eMove.y
+        }
+        else{
+            eMove.y -= moveStepsHite
+        }
+        if(eMove.x < moveSteps){
+            eMove.x = eMove.x
+        }
+        else{
+            eMove.x -= moveSteps
+        }
+        if(eMove.x > this.props.width - moveSteps){
+            eMove.x = eMove.x
+        }
+        else{
+            eMove.x += moveSteps
+        }
+        
+        
+        eMove = {
+            x: eMove.x,
+            y: eMove.y
+        }
+        this.setState(
+            {
+                eMove
+            }
+            ,
+            ()=>{
+                //ctx.drawImage(img2, eMove.x,eMove.y, width/20, height/20)
+                //eMove.y -= 1;
+            }
+        )
+        
+    }
 
     makeShip (ctx, img, move){
         let width=this.props.width;
         let height=this.props.height;
-        
-        this.reset(ctx,width,height);
+
+        //this.reset(ctx,width,height);
         
         
         
@@ -276,6 +377,7 @@ class Canvas2 extends React.Component {
             <div id='canvas2'>
                 <canvas id = 'responsive-canvas'  ref="canvas2" width={this.props.width} height={this.props.height}/>
                 <img ref="image" src={this.props.mobileView === true || this.props.width < 720 ? mship : ship} className="hidden" />
+                <img ref="image2" src={enemy2} className="hidden" />
             </div>
         )
     }
