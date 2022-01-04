@@ -42,7 +42,7 @@ class Canvas extends React.Component {
     //TICK//
     tick (time,ctx) {
         let elapsed = time - this.state.prevTime;
-
+        
         this.setState({
             prevTime: time}, () => {
             this.moveStars(elapsed*0.1);
