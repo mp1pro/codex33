@@ -4,7 +4,7 @@
     src: url('font/pockc___-webfont.woff2') format('woff2'),
          url('font/pockc___-webfont.woff') format('woff'),
          url('font/POCKC___.TTF') format('truetype');
-    
+
     font-style: normal;
 
 }
@@ -56,7 +56,7 @@ padding: 0;
 .click_tab{
     position: relative;
     height: 2%;
-    
+
 }
 
 .trapezoid {
@@ -93,9 +93,9 @@ header{
     position: relative;
 }
 header.toggle{
-    
+
     transition: margin-top 0.25s ease-out;
-    
+
 }
 
 header h1{
@@ -163,7 +163,7 @@ main{
     }
 
 div[class*="toggle-icon"]{
-    display: inline-block; 
+    display: inline-block;
     cursor: pointer;
 }
 
@@ -178,12 +178,12 @@ div[class*="toggle-icon-symbol"]{
 .tree-item-group {
   list-style-type: none;
   padding-left: 0;
-    
+
 }
 
 .tree-item {
   padding: 0.75rem 1rem;
-  
+
   color: white;
   background: none;
   /*border-bottom: 1px solid #ccc;*/
@@ -202,5 +202,32 @@ div[class*="toggle-icon-symbol"]{
   padding: 1rem 1.5rem;
   border: none;
   width: 100%; }
-  
-  
+
+/*countdown-timers    */
+.countdown{
+    position: absolute;
+    display: flex;
+    font-size: 2em;
+    font-family: 'pocket_calculatorregular', Arial, sans-serif;
+}
+
+.time-wrapper{
+
+}
+.notice{
+
+}
+.countdown > div{
+
+}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 500px) {
+    .countdown{
+        flex-direction: column;
+        font-size: 1em;
+    }
+    .time-wrapper{
+
+    }
+}
+

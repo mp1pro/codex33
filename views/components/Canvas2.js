@@ -33,36 +33,36 @@ class Canvas2 extends React.Component {
     init(){
         const x = this.props.width/2 - (this.props.width/10)/2;
         const y = this.props.height - (this.props.height/10);
-        
+
         const move = {
             x: x,
             y: y
         };
-        
+
         return move;
     }
     componentDidMount() {
         let width=this.props.width;
         let height=this.props.height;
-        
+
         const canvas = this.refs.canvas2;
 
         const ctx = canvas.getContext("2d");
         const img = this.refs.image;
         const img2 = this.refs.image2;
-        
+
         this.reset(ctx,width,height);
-        
+
         window.addEventListener('keydown', this.moveShip);
-        
+
         const render = (time) => {
             this.tick(time,ctx,img,img2)
         };
-        
+
         const animateNextFrame = (time) => {
 
             let move = this.init();
-            
+
             this.setState(
                 {
                     move: move,
@@ -72,21 +72,21 @@ class Canvas2 extends React.Component {
                 () => {requestAnimationFrame(render)}
             );
         }
-            
+
         // start the animation
         let ren = requestAnimationFrame(animateNextFrame);
     }
-    
+
     //UNMOUNT
     componentWillUnmount() {
         window.removeEventListener('keydown', this.moveShip);
         window.cancelAnimationFrame(ren);
     }
-    
+
     moveShip(event){
         //console.log('move', event);
         //console.log('move-state', this.state.move);
-        
+
         //FOR SHOOTING
         if (event.key === " "){
             console.log('shoot6', event);
@@ -97,12 +97,12 @@ class Canvas2 extends React.Component {
                 }
             })
         }
-        
+
         let moveSteps = (this.props.width/10) + (this.props.width/10)/2;
         let moveStepsHite = (this.props.height/10);
-        
+
         let move = this.state.move;
-        
+
         //MOVE SHIP
         if (event.key === "ArrowUp"){
             if(move.y < moveStepsHite){
@@ -111,7 +111,7 @@ class Canvas2 extends React.Component {
             else{
                 move.y -= moveStepsHite
             }
-        } 
+        }
         else if (event.key === "ArrowDown"){
             if(move.y > (this.props.height - moveStepsHite*2)){
                 move.y = move.y
@@ -119,7 +119,7 @@ class Canvas2 extends React.Component {
             else{
                 move.y += moveStepsHite
             }
-        } 
+        }
         else if (event.key === "ArrowLeft"){
             if(move.x < moveSteps){
                 move.x = move.x
@@ -127,7 +127,7 @@ class Canvas2 extends React.Component {
             else{
                 move.x -= moveSteps
             }
-        } 
+        }
         else if (event.key === "ArrowRight"){
             if(move.x > this.props.width - moveSteps){
                 move.x = move.x
@@ -136,24 +136,24 @@ class Canvas2 extends React.Component {
                 move.x += moveSteps
             }
         }
-        
+
         move = {
             x: move.x,
             y: move.y
         }
-        
+
         this.setState(
             {
                 move: move,
                 lazorMove: move.y
             }
         )
-        
+
         return move;
-        
-        
+
+
     }
-    
+
     reset (ctx,width,height) {
         ctx.clearRect(0, 0, width, height);
     };
@@ -166,18 +166,18 @@ class Canvas2 extends React.Component {
         let move = this.state.move;
         let elapsed = time - this.state.prevTime;
         let elapsed2 = time - this.state.prevTime2;
-         
+
         let fps = 60;
         let fps2 = 1;
         let secInterval = 1000;
         let fpsInterval =  secInterval / fps;
         let fpsInterval2 =  secInterval / fps2;
-        
-                
-        console.log('9elapsed1',elapsed,'fpsInterval',fpsInterval);
-        console.log('elapsed2',elapsed2,'fpsInterval2',fpsInterval2);
 
-        
+
+        //console.log('9elapsed1',elapsed,'fpsInterval',fpsInterval);
+        //console.log('elapsed2',elapsed2,'fpsInterval2',fpsInterval2);
+
+
         if(elapsed > fpsInterval){
             let prevTime = time - (elapsed % fpsInterval);
             this.setState(
@@ -196,12 +196,12 @@ class Canvas2 extends React.Component {
            let prevTime2 = time - (elapsed2 % fpsInterval2);
            this.setState(
                 {prevTime2}
-                
+
                 ,
                 () => {
                     this.enemyShip(ctx, img2, elapsed2);
                 }
-                
+
             );
            //this.enemyShip(ctx, img2, elapsed2);
         }
@@ -212,24 +212,24 @@ class Canvas2 extends React.Component {
 
         let ren = requestAnimationFrame(render);
     };
-    
+
     enemyShip(ctx, img2, elapsed){
         let width=this.props.width;
         let height=this.props.height;
         //console.log('elapsed9',elapsed*10);
         //this.reset(ctx,width,height);
-        
-                
+
+
         //TODO move to componentDidUpdate to state
         let moveSteps = (this.props.width/10) + (this.props.width/10)/2;
         let moveStepsHite = (this.props.height/10);
-        
+
         const x = this.props.width/2 - (this.props.width/20)/2;
         const y = this.props.height/20;
-        
+
         let {eMove} = this.state;
         ctx.drawImage(img2, eMove.x,eMove.y, width/20, height/20)
-        
+
         if(Object.keys(eMove).length === 0){
             eMove.x = x;
             eMove.y = y;
@@ -238,11 +238,11 @@ class Canvas2 extends React.Component {
             eMove.x = Math.random() < 0.5 ? eMove.x -= moveSteps : eMove.x += moveSteps ;
             //eMove.y = Math.random() < 0.5 ? eMove.y -= moveStepsHite : eMove.y += moveStepsHite ;
         }
-        
-        
+
+
         if(eMove.y > (this.props.height - moveStepsHite*2)){
             eMove.y = eMove.y
-        }    
+        }
         else{
             eMove.y += moveStepsHite
         }
@@ -264,8 +264,8 @@ class Canvas2 extends React.Component {
         else{
             eMove.x += moveSteps
         }
-        
-        
+
+
         eMove = {
             x: eMove.x,
             y: eMove.y
@@ -280,7 +280,7 @@ class Canvas2 extends React.Component {
                 //eMove.y -= 1;
             }
         )
-        
+
     }
 
     makeShip (ctx, img, move){
@@ -288,11 +288,11 @@ class Canvas2 extends React.Component {
         let height=this.props.height;
 
         //this.reset(ctx,width,height);
-        
-        
-        
+
+
+
         ctx.drawImage(img, move.x, move.y, width/10, height/10);
-        
+
         let ymove;
         if(this.state.lazorNum > 0 ){
             /*
@@ -300,19 +300,19 @@ class Canvas2 extends React.Component {
                 return {
                     throttleKeyUp: !prevState.throttleKeyUp
                 }
-            }) 
+            })
             */
             //this.makeLazor(ctx,move);
             //ymove += 150;
             ctx.fillStyle = '#f00';
-            
+
             ymove = this.state.lazorMove === move.y ? move.y - (height/10) : this.state.lazorMove;
-            
+
             ctx.fillRect(move.x + (width/10)/2, ymove, width/480, height/10);
-            
+
             //console.log('move-state', this.state.move);
-            //console.log('move.y6', move.y, 'this.state.lazorMove',this.state.lazorMove,'height',height,'ymove',ymove);    
-            
+            //console.log('move.y6', move.y, 'this.state.lazorMove',this.state.lazorMove,'height',height,'ymove',ymove);
+
             //setState here to move lazer
             if(this.state.lazorMove > 0){
                 this.setState(prevState => {
@@ -325,7 +325,7 @@ class Canvas2 extends React.Component {
                 //console.log('mov',move.y, 'this.state.lazorMov',this.state.lazorMove);
                 this.setState(prevState => {
                         return {
-                            //lazorMove: move.y 
+                            //lazorMove: move.y
                             //,
                             lazorNum: prevState.lazorNum - 1
                             //,
@@ -337,16 +337,16 @@ class Canvas2 extends React.Component {
         }
 
     };
-    
+
     makeLazor(ctx,move){
-        
+
         let width=this.props.width;
         let height=this.props.height;
-        
+
         //this.reset(ctx,width,height);
-        
+
         console.log('shoot');
-        
+
         ctx.fillStyle = '#f00';
         let xmove = 400;
         let ymove = 300;
@@ -355,13 +355,13 @@ class Canvas2 extends React.Component {
             ctx.fillRect(xmove, ymove, 150, 150);
             ymove += 150;
         }
-        
+
     }
-    
+
     componentDidUpdate(prevProps) {
         if (this.props.width !== prevProps.width) {
             let move = this.init();
-            
+
             this.setState({move: move});
         }
     }
