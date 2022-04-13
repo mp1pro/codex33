@@ -8,7 +8,7 @@ class Main extends React.Component{
     render() {
         return(
             <main
-                style={{backgroundColor: 'white', height:this.props.height}}
+                style={{height:this.props.height}}
             >
             {this.props.children}
             {/*codex33 coming soon*/}

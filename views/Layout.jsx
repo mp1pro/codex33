@@ -1,5 +1,6 @@
 //const React = require('react');
 import React from 'react';
+import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
 import {
     Router,
@@ -35,9 +36,19 @@ import HTML from './components/HTML';
 import { css } from "@emotion/core";
 import Loader from "react-spinners/PacmanLoader";
 
-const override = css`
+const override = css;
 
-`;
+//for countdown timer
+const minuteSeconds = 60;
+const hourSeconds = 3600;
+const daySeconds = 86400;
+const stratTime = Date.now() / 1000;
+const endTime = 1653195600;
+const remainingTime = endTime - stratTime;
+const days = Math.ceil(remainingTime / daySeconds);
+const daysDuration = days * daySeconds;
+
+//end timer
 
 class Layout extends React.Component{
 //module.exports = React.createClass({
@@ -67,6 +78,7 @@ class Layout extends React.Component{
         this.setLoader = this.setLoader.bind(this);
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
         this.debounce = this.debounce.bind(this);
+
     }
 
     handleClick() {
@@ -83,10 +95,10 @@ class Layout extends React.Component{
             toggleSlider: !prevState.toggleSlider
         }));
     }
-    
+
     isMobile() {
         console.log('nav',navigator.userAgent);
-        
+
         if (navigator.userAgent.match(/Android/i)
             || navigator.userAgent.match(/iPhone/i)
             || navigator.userAgent.match(/iPad/i)
@@ -95,7 +107,7 @@ class Layout extends React.Component{
             || navigator.userAgent.match(/Windows Phone/i)
             || navigator.userAgent.match(/Opera Mini/i)
             || navigator.userAgent.match(/IEMobile/i)) {
-            
+
             this.setState({
                 mobileView: true}, () => {
                 console.log('ismobile',this.state.mobileView);
@@ -108,7 +120,7 @@ class Layout extends React.Component{
                 console.log('ismobile: ',this.state.mobileView);
             });
         }
-    
+
     }
 
     updateWindowDimensions() {
@@ -124,7 +136,7 @@ class Layout extends React.Component{
             });
         }, 100);
     }
-    
+
     debounce(fn, ms) {
         let timer;
         return (() => {
@@ -151,7 +163,7 @@ class Layout extends React.Component{
     window.addEventListener('resize', this.updateWindowDimensions);
 
     this.isMobile();
-        
+
     console.log('I mount');
     //this.setTitle();
 
@@ -186,6 +198,7 @@ class Layout extends React.Component{
         console.log('set title to'+ this.props.params.article)
     }*/
 
+
     render() {
         //console.log("height: ", this.state.height);
 		let custom = this.props.custom;
@@ -215,7 +228,32 @@ class Layout extends React.Component{
                 <script src="/bundle.js" />
             </Body></HTML>);
         }
+
         /*import About from './About';*/
+
+        const renderTime = (dimension, time) => {
+            return (
+                <div className="time-wrapper">
+                    <div className="time">{time}</div>
+                    <div>{dimension}</div>
+                </div>
+            );
+        };
+
+        const getTimeSeconds = (time) => (minuteSeconds - time) | 0;
+        const getTimeMinutes = (time) => ((time % hourSeconds) / minuteSeconds) | 0;
+        const getTimeHours = (time) => ((time % daySeconds) / hourSeconds) | 0;
+        const getTimeDays = (time) => (time / daySeconds) | 0;
+
+        const vars = {
+            isPlaying: true,
+            strokeWidth: 12,
+            colors: '#F00',
+            trailColor: '#000'
+        }
+
+        //const cWidth = mobileView ? (innerWidth) : (innerWidth/4);
+        //console.log('cWidth',cWidth,'mob',mobileView);
         return(
 			<HTML>
 
@@ -247,18 +285,77 @@ class Layout extends React.Component{
 
                 </Header>
 
-
-
                 <Main height={innerHeight}>
+
+                    <div className='countdown'>
+                        <CountdownCircleTimer
+                            {...vars}
+                            duration={daysDuration}
+                            onComplete={() => ({ shouldRepeat: true, delay: 1 })}
+                            initialRemainingTime={remainingTime}
+                            size={innerWidth/4}
+                        >
+                            {({ elapsedTime, color }) => (
+                                <span style={{ color }}>
+                                    {renderTime("days", getTimeDays(daysDuration - elapsedTime))}
+                                </span>
+                            )}
+                        </CountdownCircleTimer>
+                        <CountdownCircleTimer
+                            {...vars}
+                            duration={daySeconds}
+                            initialRemainingTime={remainingTime % daySeconds}
+                            onComplete={(totalElapsedTime) => ({
+                                shouldRepeat: remainingTime - totalElapsedTime > hourSeconds
+                            })}
+                            size={innerWidth/4}
+                        >
+                            {({ elapsedTime, color }) => (
+                                <span style={{ color }}>
+                                    {renderTime("hours", getTimeHours(daySeconds - elapsedTime))}
+                                </span>
+                            )}
+                        </CountdownCircleTimer>
+                        <CountdownCircleTimer
+                            {...vars}
+                            duration={hourSeconds}
+                            initialRemainingTime={remainingTime % hourSeconds}
+                            onComplete={(totalElapsedTime) => ({
+                                shouldRepeat: remainingTime - totalElapsedTime > minuteSeconds
+                            })}
+                            size={innerWidth/4}
+                        >
+                            {({ elapsedTime, color }) => (
+                                <span style={{ color }}>
+                                    {renderTime("mins", getTimeMinutes(hourSeconds - elapsedTime))}
+                                </span>
+                            )}
+                        </CountdownCircleTimer>
+                        <CountdownCircleTimer
+                            {...vars}
+                            duration={minuteSeconds}
+                            initialRemainingTime={remainingTime % minuteSeconds}
+                            onComplete={(totalElapsedTime) => ({
+                                shouldRepeat: remainingTime - totalElapsedTime > 0
+                            })}
+                            size={innerWidth/4}
+                        >
+                            {({ elapsedTime, color }) => (
+                                <span style={{ color }}>
+                                    {renderTime("secs", getTimeSeconds(elapsedTime))}
+                                </span>
+                            )}
+                        </CountdownCircleTimer>
+                    </div>
                     <Canvas height={innerHeight} width={innerWidth}/>
                     <Canvas2 height={innerHeight} width={innerWidth} mobileView={mobileView} />
                 </Main>
-                
+
 
                 {/*Adsense_box_mobile Component
                 <Adsense_box_mobile/>
                 */}
-                
+
 
                 {/*TODO; main should only contain this.props.children*/}
                 {/*<main>*/}
@@ -290,7 +387,7 @@ class Layout extends React.Component{
 				__html: 'window.PROPS='+ JSON.stringify(custom)
 			}}/>
 			<script src="/bundle.js" />
-			
+
 			</Body>
 			</HTML>
         );
