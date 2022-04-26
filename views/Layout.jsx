@@ -7,7 +7,8 @@ import {
     IndexRoute,
     browserHistory,
     Switch,
- BrowserRouter
+    BrowserRouter,
+    Redirect
 } from 'react-router-dom';
 
 import HTML from './components/HTML';
@@ -55,7 +56,8 @@ class Layout extends React.Component{
             innerWidth:"",
             loader: true,
             height:"",
-            availHeight:""
+            availHeight:"",
+            devMode: false
 
         }
         this.handleSlider = this.handleSlider.bind(this);
@@ -191,7 +193,7 @@ class Layout extends React.Component{
         //console.log("height: ", this.state.height);
 		let custom = this.props.custom;
         //console.log("match: ",this.props.match);
-        let {loader,innerHeight,innerWidth, mobileView} = this.state;
+        let {loader,innerHeight,innerWidth, mobileView, devMode} = this.state;
         //console.log("loader: ",loader);
 
         console.log("innerHeight: ", this.state.innerHeight);
@@ -249,10 +251,16 @@ class Layout extends React.Component{
                 </Header>
 
                 <Main height={innerHeight}>
-
-                    <Countdown />
-                    <Canvas height={innerHeight} width={innerWidth}/>
-                    <Canvas2 height={innerHeight} width={innerWidth} mobileView={mobileView} />
+                    {devMode
+                        ?
+                            <a href="games.codex33.com" />
+                        :
+                            <>
+                                <Countdown/>
+                                <Canvas height={innerHeight} width={innerWidth}/>
+                                <Canvas2 height={innerHeight} width={innerWidth} mobileView={mobileView}/>
+                            </>
+                    }
                 </Main>
 
 
