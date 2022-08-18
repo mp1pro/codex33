@@ -8,7 +8,7 @@ const hourSeconds = 3600;
 const daySeconds = 86400;
 const stratTime = Date.now() / 1000;
 //countdown to this date
-const endTime = 1659792646;
+const endTime = 1664668705;
 const remainingTime = endTime - stratTime;
 const days = Math.ceil(remainingTime / daySeconds);
 const daysDuration = days * daySeconds;
