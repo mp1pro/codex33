@@ -179,15 +179,15 @@ class Layout extends React.Component{
     });*/
     }
 
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.updateWindowDimensions);
-    }
+
 
 /*    setTitle(){
         this.setState({title: this.props.params.article});
         console.log('set title to'+ this.props.params.article)
     }*/
-
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+    }
 
     render() {
         //console.log("height: ", this.state.height);
