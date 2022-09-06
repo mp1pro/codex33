@@ -6,10 +6,10 @@ import {CountdownCircleTimer} from "react-countdown-circle-timer";
 const minuteSeconds = 60;
 const hourSeconds = 3600;
 const daySeconds = 86400;
-const stratTime = Date.now() / 1000;
+const startTime = Date.now() / 1000;
 //countdown to this date
-const endTime = 1664668705;
-const remainingTime = endTime - stratTime;
+const endTime = 1667361600;
+const remainingTime = endTime - startTime;
 const days = Math.ceil(remainingTime / daySeconds);
 const daysDuration = days * daySeconds;
 
